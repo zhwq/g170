@@ -10,12 +10,13 @@ import java.lang.reflect.Method;
 自定义一个 Classloader
 加载一个 Hello.xlass 文件 执行 hello 方法
 此文件内容是一个 Hello.class 文件所有字节（x=255-x）处理后的文件
+<p/>
  */
 public class MyClassLoader extends ClassLoader {
     // 读取反码类字节
     byte[] getHelloXclass() throws IOException {
-        // Hello.class 文件所有字节（x=255-x）处理后的文件
-        InputStream inputStream = MyClassLoader.class.getClassLoader().getResourceAsStream("Hello.xlass");
+        // Hello.xlass 文件所有字节（x=255-x）处理后的文件
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("Hello.xlass");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         int len = -1;
         byte[] buff = new byte[1024];
@@ -27,14 +28,13 @@ public class MyClassLoader extends ClassLoader {
         return outputStream.toByteArray();
     }
     // 获取原始类字节
-    private static byte[] getHelloClassBytes(byte[] xclass) {
+    private byte[] getHelloClassBytes(byte[] xclass) {
         byte[] xclass2 = new byte[xclass.length];
         int i = 0, len = xclass.length;
         for (; i < len; i++) {
             // b = 255 - b0
             byte b = xclass[i];
-            // 反码
-            // (b & 0xff);
+            // ~ 按位取反
             byte b0 = (byte) ~b;
             xclass2[i] = b0;
         }
@@ -50,7 +50,7 @@ public class MyClassLoader extends ClassLoader {
     public static void main(String[] args) throws IOException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
         MyClassLoader myClassLoader = new MyClassLoader();
         byte[] xclass = myClassLoader.getHelloXclass();
-        byte[] xclass2 = getHelloClassBytes(xclass);
+        byte[] xclass2 = myClassLoader.getHelloClassBytes(xclass);
         Class helloClass = myClassLoader.defineClass("Hello", xclass2, 0, xclass2.length);
         Object hello = helloClass.newInstance();
         Method helloMethod = helloClass.getMethod("hello");
