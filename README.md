@@ -29,3 +29,5 @@ git push -u origin homework:homework
 ## 参考
 
 - [visualGC](https://www.pianshen.com/article/66651022306/)
+- [IDEA字节码学习](https://blog.csdn.net/w605283073/article/details/103209221)
+- [JVM内存](https://blog.csdn.net/y3over/article/details/104203580)
