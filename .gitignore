@@ -2,6 +2,7 @@
 .classpath
 .project
 .settings/
+.factorypath
 target/
 code/src/main/java/**/*.class
 code/src/main/java/**/*.javap
