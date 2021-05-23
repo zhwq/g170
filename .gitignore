@@ -1,4 +1,8 @@
 .idea
+.classpath
+.project
+.settings/
 target/
 code/src/main/java/**/*.class
 code/src/main/java/**/*.javap
+logs/
