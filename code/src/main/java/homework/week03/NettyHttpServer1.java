@@ -13,14 +13,26 @@ import io.netty.handler.codec.http.*;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.util.ReferenceCountUtil;
+
+import java.io.IOException;
+
 /**
- * req--resp
+ * 后端服务1 http://localhost:8801/api/hello
+ * 代理服务 http://localhost:8080/api/hello
+ * <p/>
+ * λ curl http://localhost:8080/api/hello
+ * hello world
  */
 public class NettyHttpServer1 {
   private int port;
 
   public NettyHttpServer1(int port) {
     this.port = port;
+  }
+  // 调用服务
+  public String service(String uri) throws IOException {
+    OkHttpRequest okHttpRequest = new OkHttpRequest();
+    return okHttpRequest.get(uri);
   }
 
   public void run(String proxyServer) throws InterruptedException {
@@ -58,8 +70,7 @@ public class NettyHttpServer1 {
                   FullHttpResponse fullHttpResponse = null;
                   try {
                     if (uri.contains("/api")) {
-                      OkHttpRequest okHttpRequest = new OkHttpRequest();
-                      final String value = okHttpRequest.get(proxyServer + uri);
+                      final String value = service(proxyServer + uri);
 //                      fullHttpResponse = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
 //                       fullHttpResponse.replace(Unpooled.wrappedBuffer(value.getBytes("UTF-8")));
                       fullHttpResponse = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK,
