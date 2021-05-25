@@ -82,6 +82,7 @@ public class NettyHttpServer1 {
                     }
                   } finally {
                     if (HttpUtil.isKeepAlive(fullHttpRequest)) {
+                      // @TODO: wrk 测试控制针
                       fullHttpResponse.headers().set(HttpHeaderNames.CONNECTION, HttpHeaderValues.KEEP_ALIVE);
                       ctx.write(fullHttpResponse);
                     } else {
