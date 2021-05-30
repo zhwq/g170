@@ -1,5 +1,6 @@
 package demo.concurrency;
 
+import java.util.concurrent.locks.Condition;
 import java.util.stream.IntStream;
 
 public class Counter {
@@ -21,5 +22,8 @@ public class Counter {
     IntStream.range(0, loopNum).parallel()
       .forEach(i -> counter.addAndGet());
     System.out.println(counter.getSum());
+
+    Condition c;
+
   }
 }
