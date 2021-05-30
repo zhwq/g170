@@ -14,7 +14,7 @@ public class Chat1v1Client5 {
       DataInputStream dataInputStream = new DataInputStream(is);
       DataOutputStream dataOutputStream = new DataOutputStream(os);
       Scanner scanner = new Scanner(System.in);
-      System.out.println("当前分隔符:" + scanner.delimiter());
+//      System.out.println("当前分隔符:" + scanner.delimiter());
       while (true) {
         String input = scanner.nextLine();
         dataOutputStream.writeUTF(input);

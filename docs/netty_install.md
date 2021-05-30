@@ -45,3 +45,15 @@ sudo yum install autoconf automake libtool make tar \
 ```bash
 yum install libgcc-4.8.5-36.el7_6.2.x86_64
 ```
+
+
+/*
+Handles a server-side channel.
+<p/>
+a protocal
+  that discards any received data without any response
+<p/>
+-- md
+- ChannelInboundHandler
+- ByteBuf a reference-couted object which has to be released explicitly via the release() method
+ */

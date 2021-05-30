@@ -2,11 +2,13 @@ package demo.netty;
 
 import demo.netty.handler.DiscardServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
-import io.netty.channel.nio.NioEventLoop;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 
 public class DiscardServer {
   private int port;
@@ -26,11 +28,28 @@ public class DiscardServer {
       b.group(bossGroup, workGroup)
         // 3
         .channel(NioServerSocketChannel.class)
+        .handler(new LoggingHandler(LogLevel.INFO))
         // 4
         .childHandler(new ChannelInitializer<SocketChannel>() {
           @Override
           protected void initChannel(SocketChannel socketChannel) throws Exception {
-            socketChannel.pipeline().addLast(new DiscardServerHandler());
+            socketChannel.pipeline().addLast(new ChannelInboundHandlerAdapter() {
+              //  it is the handler's responsibility to release any reference-counted object passed to the handler
+              @Override
+              public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+//    super.channelRead(ctx, msg);
+//    Discard the received data silently.
+                ((ByteBuf) msg).release();
+              }
+
+              @Override
+              public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+//    super.exceptionCaught(ctx, cause);
+//    Close the connection when an exception is raised.
+                cause.printStackTrace();
+                ctx.close();
+              }
+            });
           }
         })
         // 5
