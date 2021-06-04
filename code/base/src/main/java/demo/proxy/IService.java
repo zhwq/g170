@@ -1,4 +1,4 @@
-package demo.proxy.sp;
+package demo.proxy;
 
 public interface IService {
   default void hello(String message) {

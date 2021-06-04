@@ -1,8 +1,11 @@
 package demo.proxy.sp;
 
-public class Proxy implements IService{
+import demo.proxy.IService;
+import demo.proxy.Service;
+
+public class SProxy implements IService {
   private Service service;
-  Proxy(Service service) {
+  SProxy(Service service) {
     this.service = service;
   }
   @Override

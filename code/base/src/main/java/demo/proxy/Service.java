@@ -1,4 +1,4 @@
-package demo.proxy.sp;
+package demo.proxy;
 
 public class Service implements IService {
   @Override
