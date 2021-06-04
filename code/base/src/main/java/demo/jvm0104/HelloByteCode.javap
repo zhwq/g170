@@ -1,0 +1,168 @@
+λ javap -c demo/jvm0104/HelloByteCode.class
+Compiled from "HelloByteCode.java"
+public class code.demo.jvm0104.HelloByteCode {
+  public code.demo.jvm0104.HelloByteCode();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+       4: return
+
+  public static void main(java.lang.String[]);
+    Code:
+       0: new           #2                  // class code/demo/jvm0104/HelloByteCode
+       3: dup
+       4: invokespecial #3                  // Method "<init>":()V
+       7: astore_1
+       8: return
+}
+
+
+λ javap -c -v demo/jvm0104/HelloByteCode.class
+Classfile /C:/Java15/code/demo/jvm0104/HelloByteCode.class
+  Last modified 2021-4-27; size 306 bytes
+  MD5 checksum ccf3f781dfa0c6409fb231c931cd57da
+  Compiled from "HelloByteCode.java"
+public class code.demo.jvm0104.HelloByteCode
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #4.#13         // java/lang/Object."<init>":()V
+   #2 = Class              #14            // code/demo/jvm0104/HelloByteCode
+   #3 = Methodref          #2.#13         // code/demo/jvm0104/HelloByteCode."<init>":()V
+   #4 = Class              #15            // java/lang/Object
+   #5 = Utf8               <init>
+   #6 = Utf8               ()V
+   #7 = Utf8               Code
+   #8 = Utf8               LineNumberTable
+   #9 = Utf8               main
+  #10 = Utf8               ([Ljava/lang/String;)V
+  #11 = Utf8               SourceFile
+  #12 = Utf8               HelloByteCode.java
+  #13 = NameAndType        #5:#6          // "<init>":()V
+  #14 = Utf8               code/demo/jvm0104/HelloByteCode
+  #15 = Utf8               java/lang/Object
+{
+  public code.demo.jvm0104.HelloByteCode();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 3: 0
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=2, args_size=1
+         0: new           #2                  // class code/demo/jvm0104/HelloByteCode
+         3: dup
+         4: invokespecial #3                  // Method "<init>":()V
+         7: astore_1
+         8: return
+      LineNumberTable:
+        line 5: 0
+        line 6: 8
+}
+
+λ javap -c -v demo/jvm0104/LocalVariableTest.class
+Classfile /C:/Java15/code/demo/jvm0104/LocalVariableTest.class
+  Last modified 2021-4-27; size 686 bytes
+  MD5 checksum c48bad4ba5b9117d193e1676c441ec94
+  Compiled from "LocalVariableTest.java"
+public class code.demo.jvm0104.LocalVariableTest
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #7.#28         // java/lang/Object."<init>":()V
+   #2 = Class              #29            // code/demo/jvm0104/MovingAverage
+   #3 = Methodref          #2.#28         // code/demo/jvm0104/MovingAverage."<init>":()V
+   #4 = Methodref          #2.#30         // code/demo/jvm0104/MovingAverage.submit:(D)V
+   #5 = Methodref          #2.#31         // code/demo/jvm0104/MovingAverage.getAvg:()D
+   #6 = Class              #32            // code/demo/jvm0104/LocalVariableTest
+   #7 = Class              #33            // java/lang/Object
+   #8 = Utf8               <init>
+   #9 = Utf8               ()V
+  #10 = Utf8               Code
+  #11 = Utf8               LineNumberTable
+  #12 = Utf8               LocalVariableTable
+  #13 = Utf8               this
+  #14 = Utf8               Lcode/demo/jvm0104/LocalVariableTest;
+  #15 = Utf8               main
+  #16 = Utf8               ([Ljava/lang/String;)V
+  #17 = Utf8               args
+  #18 = Utf8               [Ljava/lang/String;
+  #19 = Utf8               ma
+  #20 = Utf8               Lcode/demo/jvm0104/MovingAverage;
+  #21 = Utf8               num1
+  #22 = Utf8               I
+  #23 = Utf8               num2
+  #24 = Utf8               avg
+  #25 = Utf8               D
+  #26 = Utf8               SourceFile
+  #27 = Utf8               LocalVariableTest.java
+  #28 = NameAndType        #8:#9          // "<init>":()V
+  #29 = Utf8               code/demo/jvm0104/MovingAverage
+  #30 = NameAndType        #34:#35        // submit:(D)V
+  #31 = NameAndType        #36:#37        // getAvg:()D
+  #32 = Utf8               code/demo/jvm0104/LocalVariableTest
+  #33 = Utf8               java/lang/Object
+  #34 = Utf8               submit
+  #35 = Utf8               (D)V
+  #36 = Utf8               getAvg
+  #37 = Utf8               ()D
+  {                                                                                                                               
+    public code.demo.jvm0104.LocalVariableTest();                                                                                 
+      descriptor: ()V                                                                                                             
+      flags: ACC_PUBLIC                                                                                                           
+      Code:                                                                                                                       
+        stack=1, locals=1, args_size=1                                                                                            
+           0: aload_0                                                                                                             
+           1: invokespecial #1                  // Method java/lang/Object."<init>":()V                                           
+           4: return                                                                                                              
+        LineNumberTable:                                                                                                          
+          line 3: 0                                                                                                               
+        LocalVariableTable:                                                                                                       
+          Start  Length  Slot  Name   Signature                                                                                   
+              0       5     0  this   Lcode/demo/jvm0104/LocalVariableTest;                                                       
+                                                                                                                                  
+    public static void main(java.lang.String[]);                                                                                  
+      descriptor: ([Ljava/lang/String;)V                                                                                          
+      flags: ACC_PUBLIC, ACC_STATIC                                                                                               
+      Code:                                                                                                                       
+        stack=3, locals=6, args_size=1                                                                                            
+           0: new           #2                  // class code/demo/jvm0104/MovingAverage                                          
+           3: dup                                                                                                                 
+           4: invokespecial #3                  // Method code/demo/jvm0104/MovingAverage."<init>":()V                            
+           7: astore_1                                                                                                            
+           8: iconst_1                                                                                                            
+           9: istore_2                                                                                                            
+          10: iconst_2                                                                                                            
+          11: istore_3                                                                                                            
+          12: aload_1                                                                                                             
+          13: iload_2                                                                                                             
+          14: i2d                                                                                                                 
+          15: invokevirtual #4                  // Method code/demo/jvm0104/MovingAverage.submit:(D)V                             
+          18: aload_1                                                                                                             
+          19: iload_3                                                                                                             
+          20: i2d                                                                                                                 
+          21: invokevirtual #4                  // Method code/demo/jvm0104/MovingAverage.submit:(D)V                             
+          24: aload_1                                                                                                             
+          25: invokevirtual #5                  // Method code/demo/jvm0104/MovingAverage.getAvg:()D                              
+          28: dstore        4                                                                                                     
+          30: return                                                                                                              
+        LineNumberTable:
+        LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      31     0  args   [Ljava/lang/String;
+            8      23     1    ma   Lcode/demo/jvm0104/MovingAverage;
+           10      21     2  num1   I
+           12      19     3  num2   I
+           30       1     4   avg   D
+}
+SourceFile: "LocalVariableTest.java"                                                                                                          

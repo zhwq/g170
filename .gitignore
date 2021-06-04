@@ -3,6 +3,7 @@
 .project
 .settings/
 .factorypath
+*.iml
 target/
 code/src/main/java/**/*.class
 code/src/main/java/**/*.javap
