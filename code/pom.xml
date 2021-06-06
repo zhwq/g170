@@ -104,5 +104,6 @@
   </build>
   <modules>
     <module>base</module>
+    <module>hello-starter</module>
   </modules>
 </project>

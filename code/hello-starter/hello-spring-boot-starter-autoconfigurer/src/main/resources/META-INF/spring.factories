@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration.EnableAutoConfiguration=\
+com.g170.HelloAutoConfiguration
