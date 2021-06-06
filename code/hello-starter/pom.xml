@@ -14,7 +14,7 @@
     <relativePath/>
   </parent>
   <modules>
-    <module>hello-spring-boot-starter</module>
+    <module>hello-spring-boot-starter-test</module>
     <module>hello-spring-boot-starter-autoconfigurer</module>
   </modules>
 </project>
