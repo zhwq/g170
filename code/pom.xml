@@ -124,5 +124,6 @@
   <modules>
     <module>base</module>
     <module>hello-starter</module>
+    <module>xa</module>
   </modules>
 </project>
