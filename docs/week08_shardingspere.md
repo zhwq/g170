@@ -35,6 +35,8 @@ props:
 
 - config-sharding.yml
 
+- `shardingColumn` 配置错误导致 `Cannot invoke method mod() on null object`
+
 ```yaml
 schemaName: sharding_db
 
@@ -62,7 +64,7 @@ rules:
      actualDataNodes: ds_0.t_order_${0..15}
      tableStrategy:
        standard:
-         shardingColumn: order_id
+         shardingColumn: user_id
          shardingAlgorithmName: t_order_inline
      keyGenerateStrategy:
        column: order_id
@@ -98,7 +100,7 @@ rules:
 
 - `bin\start.bat 3317 conf -A`
 
-- **-A** 
+- **-A** 预取元数据
 
 
 ### sql
@@ -112,6 +114,5 @@ create table t_order(
     user_id int not null
 );
 
--- 发送错误 `Cannot invoke method mod() on null object`
 insert into t_order(user_id) values(1),(2);
 ```
