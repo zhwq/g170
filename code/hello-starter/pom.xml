@@ -10,15 +10,15 @@
     <groupId>com.g170</groupId>
     <artifactId>demo</artifactId>
     <version>4.0.0</version>
-    <relativePath/>
+    <relativePath>../pom.xml</relativePath>
   </parent>
   <properties>
     <spring-boot.version>2.4.3</spring-boot.version>
   </properties>
-  <modules>
-    <module>hello-spring-boot-starter</module>
-    <module>hello-spring-boot-starter-autoconfigurer</module>
-  </modules>
+<!--  <modules>-->
+<!--    <module>hello-spring-boot-starter</module>-->
+<!--    <module>hello-spring-boot-starter-autoconfigurer</module>-->
+<!--  </modules>-->
   <dependencyManagement>
     <dependencies>
       <dependency>
