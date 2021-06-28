@@ -15,6 +15,7 @@
   </parent>
   <properties>
     <spring-boot.version>2.4.3</spring-boot.version>
+    <shardingsphere.version>5.0.0-alpha</shardingsphere.version>
   </properties>
   <dependencies>
     <dependency>
@@ -29,7 +30,16 @@
       <version>1.0</version>
       <scope>provided</scope>
     </dependency>
-
+    <dependency>
+      <groupId>com.zaxxer</groupId>
+      <artifactId>HikariCP</artifactId>
+      <version>3.4.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.shardingsphere</groupId>
+      <artifactId>shardingsphere-jdbc-core</artifactId>
+      <version>${shardingsphere.version}</version>
+    </dependency>
     <dependency>
       <groupId>com.atomikos</groupId>
       <artifactId>transactions-jdbc</artifactId>
@@ -57,5 +67,15 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>7</source>
+          <target>7</target>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 </project>
