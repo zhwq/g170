@@ -47,7 +47,7 @@ public class AtomikosTest {
       // 执行db1上的sql
       conn1 = ds1.getConnection();
       ps1 = conn1.prepareStatement("INSERT into user(name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
-      ps1.setString(1, "tianshouzhi");
+      ps1.setString(1, "zhangsan");
       ps1.executeUpdate();
       ResultSet generatedKeys = ps1.getGeneratedKeys();
       int userId = -1;
@@ -56,7 +56,7 @@ public class AtomikosTest {
       }
 
       // 模拟异常 ，直接进入catch代码块，2个都不会提交
-//        int i=1/0;
+        int i=1/0;
 
       // 执行db2上的sql
       conn2 = ds2.getConnection();
@@ -69,6 +69,7 @@ public class AtomikosTest {
       userTransaction.commit();
     } catch (Exception e) {
       try {
+        System.out.println("模拟异常===>回滚");
         e.printStackTrace();
         userTransaction.rollback();
       } catch (SystemException e1) {
