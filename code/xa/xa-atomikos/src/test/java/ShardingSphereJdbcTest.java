@@ -17,7 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 @RunWith(JUnit4.class)
-public class ShardingSpereJdbcTest {
+public class ShardingSphereJdbcTest {
 
   DataSource dataSource;
   /*

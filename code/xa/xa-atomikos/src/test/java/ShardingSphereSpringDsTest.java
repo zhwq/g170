@@ -1,34 +1,34 @@
-import cn.hutool.core.io.IoUtil;
-import org.apache.shardingsphere.driver.api.yaml.YamlShardingSphereDataSourceFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.sql.DataSource;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @RunWith(JUnit4.class)
-public class ShardingSpereJdbcYamlTest {
+public class ShardingSphereSpringDsTest {
+  ApplicationContext applicationContext;
   DataSource dataSource;
-  @Before public void init() throws IOException, SQLException {
-    // 创建 ShardingSphereDataSource
-    // URL --> File
-    InputStream inputStream =  getClass().getClassLoader().getResourceAsStream("sharding-order.yaml");
-    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    IoUtil.copy(inputStream, byteArrayOutputStream);
-    byte[] yamlBytes = byteArrayOutputStream.toByteArray();
-    dataSource = YamlShardingSphereDataSourceFactory.createDataSource(yamlBytes);
+  @Before
+  public void init() {
+    applicationContext = new ClassPathXmlApplicationContext("spring-context-sharding.xml");
+    dataSource = (DataSource) applicationContext.getBean("shardingDataSource");
   }
 
-  @Test
-  public void testQueryByYaml() throws SQLException {
+  @Test public void testDs() throws SQLException {
+    Connection connection = dataSource.getConnection();
+    // org.apache.shardingsphere.driver.jdbc.core.connection.ShardingSphereConnection@522a32b1
+    System.out.println(connection);
+  }
+
+  @Test public void testQuery() throws SQLException {
+    // sharding-column 和取模的列不一致会导致异常 java.lang.NullPointerException: Cannot invoke method mod() on null object
     final String sql = "select order_id, user_id from t_order where user_id = ?";
     Connection connection = dataSource.getConnection();
     PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -42,4 +42,5 @@ public class ShardingSpereJdbcYamlTest {
     preparedStatement.close();
     connection.close();
   }
+
 }
