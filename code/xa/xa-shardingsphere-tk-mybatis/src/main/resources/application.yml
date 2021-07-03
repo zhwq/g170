@@ -1,0 +1,59 @@
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classspath:mybatis/mapper/*.xml
+
+pagehelper:
+  helpDialect: mysql
+  reasonable: true
+
+server:
+  port: 8888
+
+spring:
+  shardingsphere:
+    props:
+      sql-show: true
+    datasource:
+      common:
+        driver-class-name: com.mysql.jdbc.Driver
+        type: com.zaxxer.hikari.HikariDataSource
+      names: ds0,ds1
+      ds0:
+        jdbc-url: jdbc:mysql://localhost:8266/g170_mall_0
+        username: g170_mall
+        password: g170_mall@123
+      ds1:
+        jdbc-url: jdbc:mysql://localhost:8266/g170_mall_1
+        username: g170_mall
+        password: g170_mall@123
+    rules:
+      sharding:
+        key-generators:
+          snowflake:
+            type: SNOWFLAKE
+            props:
+              worker-id: 123
+        # 配置 分片算法
+        sharding-algorithms:
+          database-inline:
+            type: INLINE
+            props.algorithm-expression: ds$->{user_id % 2}
+          table-inline:
+            type: INLINE
+            props.algorithm-expression: t_order_$->{order_id % 2}
+        # 配置 t_order 表规则
+        tables:
+          t_order:
+            actual-data-nodes: ds$->{0..1}.t_order_$->{0..1}
+            # 配置分库策略
+            database-strategy.standard:
+              sharding-column: user_id
+              sharding-algorithm-name: database-inline
+            # 配置分表策略
+            table-strategy.standard:
+              sharding-column: order_id
+              sharding-algorithm-name: table-inline
+            # order_id 雪花算法
+            key-generate-strategy:
+              column: order_id
+              key-generator-name: snowflake
