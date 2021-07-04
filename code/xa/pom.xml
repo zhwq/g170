@@ -41,7 +41,6 @@
   </build>
   <modules>
     <module>xa-atomikos</module>
-<!--    @FIXME: 未测试成功 -->
     <module>xa-atomikos-starter</module>
     <module>xa-shardingsphere-tk-mybatis</module>
   </modules>
