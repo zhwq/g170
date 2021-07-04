@@ -56,7 +56,8 @@
       <dependency>
         <groupId>com.squareup.okhttp3</groupId>
         <artifactId>okhttp</artifactId>
-        <version>3.8.1</version>
+<!--        <version>3.8.1</version>-->
+        <version>3.12.2</version>
       </dependency>
       <dependency>
         <groupId>io.netty</groupId>
@@ -131,5 +132,6 @@
     <module>base</module>
     <module>hello-starter</module>
     <module>xa</module>
+    <module>rpc</module>
   </modules>
 </project>
