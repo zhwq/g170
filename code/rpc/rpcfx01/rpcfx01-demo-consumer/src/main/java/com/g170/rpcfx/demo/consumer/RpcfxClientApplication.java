@@ -26,8 +26,10 @@ public class RpcfxClientApplication {
     // service.findById
 
     UserService userService = Rpcfx.create(UserService.class, "http://localhost:8888/");
-    User user = userService.findById(1);
-    System.out.println("find user id=1 from server: " + user.getName());
+//    User user = userService.findById(1);
+    System.out.println("find user id=1 from server: " + userService.findById(1).getName());
+    // 偶数id 触发除0异常
+    System.out.println("find user id=2 from server: " + userService.findById(2).getName());
 
 //		OrderService orderService = Rpcfx.create(OrderService.class, "http://localhost:8080/");
 //		Order order = orderService.findOrderById(1992129);

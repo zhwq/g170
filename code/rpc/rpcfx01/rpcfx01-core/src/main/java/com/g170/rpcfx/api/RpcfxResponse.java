@@ -6,5 +6,5 @@ import lombok.Data;
 public class RpcfxResponse {
     private Object result;
     private boolean status;
-    private Exception exception;
+    private RpcfxException exception;
 }
