@@ -1,15 +1,15 @@
 package com.g170.rpcfx.demo.consumer;
 
-import com.g170.rpcfx.api.Filter;
-import com.g170.rpcfx.api.LoadBalancer;
-import com.g170.rpcfx.api.Router;
-import com.g170.rpcfx.api.RpcfxRequest;
+import com.g170.rpcfx.api.*;
 import com.g170.rpcfx.client.Rpcfx;
 import com.g170.rpcfx.demo.api.User;
 import com.g170.rpcfx.demo.api.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.List;
 
 @SpringBootApplication
@@ -20,7 +20,7 @@ public class RpcfxClientApplication {
   // nexus, userserivce -> userdao -> user
   //
 
-  public static void main(String[] args) {
+  static void test1() {
 
     // UserService service = new xxx();
     // service.findById
@@ -39,6 +39,34 @@ public class RpcfxClientApplication {
 //		UserService userService2 = Rpcfx.createFromRegistry(UserService.class, "localhost:2181", new TagRouter(), new RandomLoadBalancer(), new CuicuiFilter());
 
 //		SpringApplication.run(RpcfxClientApplication.class, args);
+  }
+
+  static void testFakeAop() {
+    UserService userService = Rpcfx.create(UserService.class, "http://localhost:8888/");
+    MyAspect myAspect = new MyAspect();
+    UserService proxyService = (UserService) Proxy.newProxyInstance(RpcfxClientApplication.class.getClassLoader(), userService.getClass().getInterfaces(),
+      (proxy, method, args1) -> {
+        myAspect.before();
+        Object ret;
+        try {
+          ret = method.invoke(userService, args1);
+        } catch (Exception ex) {
+          myAspect.throwable();
+          if (ex instanceof RpcfxException) {
+            RpcfxException rpcfxException = (RpcfxException) ex;
+            System.out.println(rpcfxException.getMessage());
+          }
+          throw  ex;
+        }
+        myAspect.after();
+        return ret;
+      });
+    System.out.println("find user id=3 from server: " + proxyService.findById(4).getName());
+  }
+
+  public static void main(String[] args) {
+//    test1();
+    testFakeAop();
   }
 
   private static class TagRouter implements Router {
