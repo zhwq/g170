@@ -1,13 +1,9 @@
 server:
   port: 8088
-  
-spring:
-  application:
-    name: dubbo-demo-provider
 
 dubbo:
   scan:
-    base-packages: io.kimmking.dubbo.demo.provider
+    base-packages: com.g170.dubbo.demo.provider
   protocol:
     name: dubbo
     port: 12345
@@ -24,3 +20,54 @@ dubbo:
     qos-port-compatible: 22222
     qos-accept-foreign-ip-compatible: true
     qos-host: localhost
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classspath:mybatis/mapper/*.xml
+pagehelper:
+  helpDialect: mysql
+  reasonable: true
+
+spring:
+  application:
+    name: dubbo-demo-provider
+  shardingsphere:
+    props:
+      sql-show: true
+    datasource:
+      common:
+        driver-class-name: com.mysql.jdbc.Driver
+        type: com.zaxxer.hikari.HikariDataSource
+      names: ds0,ds1
+      ds0:
+        jdbc-url: jdbc:mysql://localhost:8266/g170_hmily_0
+        username: g170
+        password: g170@123
+      ds1:
+        jdbc-url: jdbc:mysql://localhost:8266/g170_hmily_1
+        username: g170
+        password: g170@123
+    rules:
+      sharding:
+        key-generators:
+          snowflake:
+            type: SNOWFLAKE
+            props:
+              worker-id: 123
+        # 配置 分片算法
+        sharding-algorithms:
+          database-inline:
+            type: INLINE
+            props.algorithm-expression: ds$->{account_no % 2}
+        # 配置 t_account 表规则
+        tables:
+          t_account:
+            actual-data-nodes: ds$->{0..1}.t_account
+            # 配置分库策略
+            database-strategy.standard:
+              sharding-column: account_no
+              sharding-algorithm-name: database-inline
+            # id 雪花算法
+            key-generate-strategy:
+              column: id
+              key-generator-name: snowflake

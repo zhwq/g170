@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.g170.dubbo.demo.dao.AccountDao">
+  <resultMap id="BaseResultMap" type="com.g170.dubbo.demo.entity.Account">
+    <id column="id" jdbcType="bigint" property="id"/>
+    <id column="account_no" jdbcType="bigint" property="accountNo"/>
+    <id column="account_name" jdbcType="varchar" property="accountName"/>
+    <id column="account_type" jdbcType="varchar" property="accountType"/>
+    <id column="amount" jdbcType="double" property="amount"/>
+  </resultMap>
+</mapper>
